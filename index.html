@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAR Studio - Студия игровой разработки</title>
+    <style>
+        :root {
+            --primary: #0A1429;
+            --secondary: #00D4FF;
+            --accent: #00D4FF;
+            --dark: #0D0D0D;
+            --light: #FFFFFF;
+            --gray: #E0E0E0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Arial', sans-serif;
+            background: #0A1429;
+            color: #FFFFFF;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Навигация */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 20, 41, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00D4FF;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #FFFFFF;
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+            background: rgba(0, 212, 255, 0.1);
+            padding: 8px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .nav-menu li {
+            margin: 0;
+        }
+
+        .nav-menu a {
+            color: #E0E0E0;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-menu a:hover {
+            color: #0A1429;
+            background: rgba(0, 212, 255, 0.8);
+        }
+
+        .nav-menu a.active {
+            color: #0A1429;
+            background: #00D4FF;
+        }
+
+        /* Основная секция */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 5% 40px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            margin-bottom: 40px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: #00D4FF;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(45deg, #FFFFFF, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .accent-text {
+            color: #00D4FF;
+            -webkit-text-fill-color: #00D4FF;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #E0E0E0;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Кнопки */
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-button {
+            padding: 16px 32px;
+            border: 2px solid #00D4FF;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button.primary {
+            background: #00D4FF;
+            color: #0A1429;
+        }
+
+        .cta-button.primary:hover {
+            background: transparent;
+            color: #00D4FF;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: #00D4FF;
+        }
+
+        .cta-button.secondary:hover {
+            background: #00D4FF;
+            color: #0A1429;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Визуальная часть */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .art-slider {
+            width: 100%;
+            max-width: 500px;
+            height: 350px;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 20px;
+            color: white;
+        }
+
+        .slide-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #00D4FF;
+        }
+
+        .slide-description {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .slider-btn {
+            background: rgba(0, 212, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #0A1429;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn:hover {
+            background: #00D4FF;
+            transform: scale(1.1);
+        }
+
+        .slide-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: #00D4FF;
+            transform: scale(1.2);
+        }
+
+        /* Общие стили для секций */
+        .section {
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00D4FF, #FFFFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #E0E0E0;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Секция "О Студии" */
+        .about-section {
+            background: #0D152C;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #E0E0E0;
+            text-align: left;
+        }
+
+        .about-text p {
+            margin-bottom: 24px;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #00D4FF;
+            text-align: left;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #00D4FF;
+            margin-bottom: 12px;
+        }
+
+        .feature-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #E0E0E0;
+        }
+
+        /* Секция "Многолетний опыт" */
+        .experience-section {
+            background: #0A1429;
+        }
+
+        .experience-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #00D4FF;
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #00D4FF;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #E0E0E0;
+        }
+
+        .milestones {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .milestone {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border-left: 4px solid #00D4FF;
+        }
+
+        .milestone-year {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00D4FF;
+            min-width: 80px;
+            margin-right: 20px;
+        }
+
+        .milestone-content h3 {
+            font-size: 18px;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+
+        .milestone-content p {
+            color: #E0E0E0;
+            line-height: 1.6;
+        }
+
+        /* Секция услуг */
+        .services-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(78, 205, 196, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #00D4FF;
+        }
+
+        .service-description {
+            color: #FFFFFF;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .service-features li {
+            padding: 5px 0;
+            color: #00D4FF;
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+
+        .service-features li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #4ecdc4;
+            font-size: 0.8rem;
+        }
+
+        .genre-tag {
+            display: inline-block;
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        /* Секция портфолио */
+        .portfolio-section {
+            background: linear-gradient(135deg, #0A1429 0%, #0D0D0D 100%);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .game-image {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover .game-image img {
+            transform: scale(1.1);
+        }
+
+        .game-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover .game-overlay {
+            opacity: 1;
+        }
+
+        .view-details {
+            color: #00D4FF;
+            border: 2px solid #00D4FF;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .view-details:hover {
+            background: #fff;
+            color: #0f0f1a;
+        }
+
+        .game-title {
+            font-size: 1.2rem;
+            margin: 15px 15px 5px;
+            color: #00D4FF;
+        }
+
+        .game-genre {
+            margin: 0 15px 15px;
+            color: #FFFFFF;
+            font-size: 0.85rem;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0A1429 0%, #0D0D0D 100%);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #00D4FF;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #modalImage {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-text {
+            padding: 25px;
+        }
+
+        #modalTitle {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #modalDescription {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #FFFFFF;
+            margin-bottom: 25px;
+        }
+
+        .game-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .feature {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-label {
+            color: #8892b0;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .feature-value {
+            color: #4ecdc4;
+            font-size: 0.9rem;
+        }
+
+        /* Секция "Команда" */
+        .team-section {
+            background: #0A1429;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            border-color: #00D4FF;
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 15px;
+            border: 3px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-info h3 {
+            margin-bottom: 5px;
+            color: var(--light);
+            font-size: 1.2rem;
+        }
+
+        .member-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Секция "Нам доверяют" */
+        .trust-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            border-radius: 20px;
+            margin: 0 5% 40px;
+            padding: 50px 5%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .trust-card {
+            background: var(--dark);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trust-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .trust-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.2);
+        }
+
+        .trust-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .trust-logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--light);
+            transition: color 0.3s ease;
+        }
+
+        /* Секция "О нас пишут" */
+        .publications-section {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            border-radius: 20px;
+            margin: 0 5% 40px;
+            padding: 50px 5%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .publications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .publication-card {
+            background: var(--primary);
+            border-radius: 15px;
+            padding: 25px 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .publication-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .publication-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.2);
+        }
+
+        .publication-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .publication-logo {
+            height: 40px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .publication-logo-text {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--light);
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .publication-logo-text::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 70%;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .publication-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+
+        .publication-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            flex-grow: 1;
+            margin-bottom: 10px;
+        }
+
+        .publication-type {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 12px;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Контакты */
+        .contact-section {
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            text-align: left;
+        }
+
+        .contact-form {
+            text-align: left;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            margin-right: 15px;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--gray);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Анимированный фон */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: #00D4FF;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 5%;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-menu {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .nav-menu a {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 100px 5% 40px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .art-slider {
+                height: 250px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .section-subtitle {
+                font-size: 16px;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .milestone {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .milestone-year {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .services-grid,
+            .portfolio-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .publications-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+
+            .experience-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <a href="#" class="logo">DAR Studio</a>
+        <ul class="nav-menu">
+            <li><a href="#about" class="active">О Студии</a></li>
+            <li><a href="#experience">Опыт</a></li>
+            <li><a href="#services">Услуги</a></li>
+            <li><a href="#portfolio">Портфолио</a></li>
+            <li><a href="#team">Команда</a></li>
+            <li><a href="#trust">Партнеры</a></li>
+            <li><a href="#publications">Публикации</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <!-- Основная секция -->
+    <section class="hero">
+        <div class="particles" id="particles"></div>
+        
+        <div class="hero-content">
+            <p class="hero-subtitle">DAR Studio</p>
+            <h1 class="hero-title">ИГРЫ, КОТОРЫЕ <span class="accent-text">ЗАПОМНЯТ</span></h1>
+            <p class="hero-description">
+                Студия игровой разработки из Нефтеюганска, создающая признанные на мировой арене проекты. 
+                Мы объединяем инновационные технологии и глубокий геймдизайн.
+            </p>
+            <div class="hero-cta">
+                <a href="#portfolio" class="cta-button primary">СМОТРЕТЬ ПРОЕКТЫ</a>
+                <a href="#contact" class="cta-button secondary">СВЯЗАТЬСЯ С НАМИ</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="art-slider">
+                <div class="slide active">
+                    <img src="https://newcdn.igromania.ru/mnt/games/4/9/4/a/d/0/14727/73f7677257f9bfa6_original.webp" alt="Cyber Nexus">
+                    <div class="slide-content">
+                        <div class="slide-title">Cyberpunk2077</div>
+                        <div class="slide-description">Киберпанк RPG с открытым миром</div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://cdn1.epicgames.com/spt-assets/f860c975e5f041aa895eaef6201e066a/extreme-offroad-racing-1rqz8.jpg" alt="Arctic Survival">
+                    <div class="slide-content">
+                        <div class="slide-title">Arctic Survival</div>
+                        <div class="slide-description">Хардкорный симулятор выживания</div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://unity.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Ffuvbjjlp%2Fproduction%2F52d107d2ecf2ed3cbe61c25d5fab1832e064a1ba-1920x1080.png%3Fauto%3Dformat&w=3840&q=75" alt="Fantasy Kingdom">
+                    <div class="slide-content">
+                        <div class="slide-title">Fantasy Kingdom</div>
+                        <div class="slide-description">Фэнтези RPG с элементами тактики</div>
+                    </div>
+                </div>
+                
+                <div class="slider-controls">
+                    <button class="slider-btn prev">❮</button>
+                    <button class="slider-btn next">❯</button>
+                </div>
+                
+                <div class="slide-indicators">
+                    <div class="indicator active"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "О Студии" -->
+    <section id="about" class="section about-section">
+        <div class="section-header">
+            <h2 class="section-title">О Студии</h2>
+            <p class="section-subtitle">DAR Studio - это команда профессионалов, создающая уникальные игровые миры с 2015 года</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Мы - независимая студия разработки игр, базирующаяся в Нефтеюганске. Наша команда объединяет талантливых дизайнеров, программистов и художников, которые разделяют страсть к созданию незабываемых игровых впечатлений.</p>
+                <p>Наша философия - создавать игры, которые не только развлекают, но и оставляют след в сердцах игроков. Мы верим, что каждая игра должна иметь свою душу, уникальную историю и глубокий геймплей.</p>
+            </div>
+            
+            <div class="about-features">
+                <div class="feature">
+                    <h3 class="feature-title">Инновации</h3>
+                    <p class="feature-description">Мы постоянно исследуем новые технологии и подходы к геймдизайну, чтобы создавать передовые игровые продукты.</p>
+                </div>
+                <div class="feature">
+                    <h3 class="feature-title">Качество</h3>
+                    <p class="feature-description">Каждый наш проект проходит строгий контроль качества на всех этапах разработки.</p>
+                </div>
+                <div class="feature">
+                    <h3 class="feature-title">Сообщество</h3>
+                    <p class="feature-description">Мы тесно взаимодействуем с нашим сообществом, учитывая отзывы и предложения игроков.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "Многолетний опыт" -->
+    <section id="experience" class="section experience-section">
+        <div class="section-header">
+            <h2 class="section-title">Многолетний опыт</h2>
+            <p class="section-subtitle">Более 8 лет мы создаем игры, которые покоряют сердца миллионов игроков по всему миру</p>
+        </div>
+        
+        <div class="experience-stats">
+            <div class="stat-card">
+                <div class="stat-number">8+</div>
+                <div class="stat-label">Лет на рынке</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Выпущенных проектов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5M+</div>
+                <div class="stat-label">Игроков по всему миру</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">25+</div>
+                <div class="stat-label">Наград и номинаций</div>
+            </div>
+        </div>
+        
+        <div class="milestones">
+            <div class="milestone">
+                <div class="milestone-year">2015</div>
+                <div class="milestone-content">
+                    <h3>Основание студии</h3>
+                    <p>DAR Studio была основана группой энтузиастов с целью создания уникальных игровых проектов.</p>
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-year">2017</div>
+                <div class="milestone-content">
+                    <h3>Первый успех</h3>
+                    <p>Наш первый крупный проект получил признание на международной игровой выставке.</p>
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-year">2020</div>
+                <div class="milestone-content">
+                    <h3>Мировое признание</h3>
+                    <p>Наша игра вошла в топ-10 игр года по версии нескольких авторитетных изданий.</p>
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-year">2023</div>
+                <div class="milestone-content">
+                    <h3>Новые горизонты</h3>
+                    <p>Мы начали разработку нашего самого амбициозного проекта с использованием передовых технологий.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция услуг -->
+    <section id="services" class="section services-section">
+        <div class="section-header">
+            <h2 class="section-title">Наши Услуги</h2>
+            <p class="section-subtitle">Мы предлагаем полный цикл разработки игр - от концепции до релиза и поддержки</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-icon">🎮</span>
+                <h3 class="service-title">Разработка игр</h3>
+                <p class="service-description">Полный цикл разработки игр для PC, консолей и мобильных платформ.</p>
+                <ul class="service-features">
+                    <li>Концепция и дизайн</li>
+                    <li>Программирование</li>
+                    <li>Тестирование и отладка</li>
+                    <li>Релиз и поддержка</li>
+                </ul>
+                <span class="genre-tag">PC • Консоли • Мобильные</span>
+            </div>
+            
+            <div class="service-card">
+                <span class="service-icon">🎨</span>
+                <h3 class="service-title">Графика и анимация</h3>
+                <p class="service-description">Создание визуального контента для игр любой сложности.</p>
+                <ul class="service-features">
+                    <li>2D/3D моделирование</li>
+                    <li>Текстурирование</li>
+                    <li>Анимация персонажей</li>
+                    <li>Визуальные эффекты</li>
+                </ul>
+                <span class="genre-tag">2D • 3D • VFX</span>
+            </div>
+            
+            <div class="service-card">
+                <span class="service-icon">🔊</span>
+                <h3 class="service-title">Звук и музыка</h3>
+                <p class="service-description">Профессиональное озвучивание и создание саундтреков.</p>
+                <ul class="service-features">
+                    <li>Саундтреки</li>
+                    <li>Звуковые эффекты</li>
+                    <li>Озвучивание</li>
+                    <li>Аудио-постпродакшн</li>
+                </ul>
+                <span class="genre-tag">Музыка • SFX • Голос</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция портфолио -->
+    <section id="portfolio" class="section portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title">Наши Проекты</h2>
+            <p class="section-subtitle">Игры, которые мы создали с любовью и профессионализмом</p>
+        </div>
+        
+        <div class="portfolio-grid">
+            <div class="game-card" data-game="cyber-nexus">
+                <div class="game-image">
+                    <img src="https://newcdn.igromania.ru/mnt/games/4/9/4/a/d/0/14727/73f7677257f9bfa6_original.webp" alt="Cyber Nexus">
+                    <div class="game-overlay">
+                        <span class="view-details">Смотреть детали</span>
+                    </div>
+                </div>
+                <h3 class="game-title">Cyber Nexus</h3>
+                <p class="game-genre">Киберпанк RPG • 2022</p>
+            </div>
+            
+            <div class="game-card" data-game="arctic-survival">
+                <div class="game-image">
+                    <img src="https://cdn1.epicgames.com/spt-assets/f860c975e5f041aa895eaef6201e066a/extreme-offroad-racing-1rqz8.jpg" alt="Arctic Survival">
+                    <div class="game-overlay">
+                        <span class="view-details">Смотреть детали</span>
+                    </div>
+                </div>
+                <h3 class="game-title">Arctic Survival</h3>
+                <p class="game-genre">Симулятор выживания • 2021</p>
+            </div>
+            
+            <div class="game-card" data-game="Fantasy Kingdom">
+                <div class="game-image">
+                    <img src="https://unity.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Ffuvbjjlp%2Fproduction%2F52d107d2ecf2ed3cbe61c25d5fab1832e064a1ba-1920x1080.png%3Fauto%3Dformat&w=3840&q=75" alt="Fantasy Kingdom">
+                    <div class="game-overlay">
+                        <span class="view-details">Смотреть детали</span>
+                    </div>
+                </div>
+                <h3 class="game-title">Fantasy Kingdom</h3>
+                <p class="game-genre">Фэнтези RPG • 2023</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "Команда" -->
+    <section id="team" class="section team-section">
+        <div class="section-header">
+            <h2 class="section-title">Наша Команда</h2>
+            <p class="section-subtitle">Талантливые профессионалы, которые создают магию игровой разработки</p>
+        </div>
+        
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-photo">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Александр Петров">
+                </div>
+                <div class="member-info">
+                    <h3>Александр Петров</h3>
+                    <p>Геймдизайнер</p>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-photo">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Мария Иванова">
+                </div>
+                <div class="member-info">
+                    <h3>Мария Иванова</h3>
+                    <p>Художественный руководитель</p>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-photo">
+                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Дмитрий Смирнов">
+                </div>
+                <div class="member-info">
+                    <h3>Дмитрий Смирнов</h3>
+                    <p>Ведущий программист</p>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-photo">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Елена Кузнецова">
+                </div>
+                <div class="member-info">
+                    <h3>Елена Кузнецова</h3>
+                    <p>Продюсер</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "Нам доверяют" -->
+    <section id="trust" class="trust-section">
+        <div class="section-header">
+            <h2 class="section-title">Нам доверяют</h2>
+            <p class="section-subtitle">Мы гордимся сотрудничеством с ведущими компаниями игровой индустрии</p>
+        </div>
+        
+        <div class="trust-grid">
+            <div class="trust-card">
+                <div class="trust-logo">Unity</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-logo">Unreal</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-logo">Steam</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-logo">Epic Games</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-logo">Sony</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-logo">Microsoft</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "О нас пишут" -->
+    <section id="publications" class="publications-section">
+        <div class="section-header">
+            <h2 class="section-title">О нас пишут</h2>
+            <p class="section-subtitle">Наши проекты получают признание ведущих игровых изданий</p>
+        </div>
+        
+        <div class="publications-grid">
+            <div class="publication-card">
+                <div class="publication-logo">
+                    <div class="publication-logo-text">IGN</div>
+                </div>
+                <h3 class="publication-name">"Cyber Nexus - новый стандарт киберпанк RPG"</h3>
+                <p class="publication-desc">"DAR Studio создали игру, которая переопределяет жанр киберпанк RPG с ее глубоким сюжетом и инновационным геймплеем."</p>
+                <span class="publication-type">Рецензия</span>
+            </div>
+            
+            <div class="publication-card">
+                <div class="publication-logo">
+                    <div class="publication-logo-text">GameSpot</div>
+                </div>
+                <h3 class="publication-name">"Arctic Survival: хардкорный вызов для настоящих выживальщиков"</h3>
+                <p class="publication-desc">"Студия DAR доказала, что даже в переполненном жанре симуляторов выживания можно создать нечто уникальное и захватывающее."</p>
+                <span class="publication-type">Обзор</span>
+            </div>
+            
+            <div class="publication-card">
+                <div class="publication-logo">
+                    <div class="publication-logo-text">Kotaku</div>
+                </div>
+                <h3 class="publication-name">"Как небольшая студия из России покоряет мировой игровой рынок"</h3>
+                <p class="publication-desc">"История успеха DAR Studio - это пример того, как талант и упорство могут привести к международному признанию."</p>
+                <span class="publication-type">Статья</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="section contact-section">
+        <div class="section-header">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            <p class="section-subtitle">Готовы обсудить ваш проект или сотрудничество? Мы всегда на связи!</p>
+        </div>
+        
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <h3>Адрес</h3>
+                        <p>г. Нефтеюганск, ул. Ленина, 45</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div>
+                        <h3>Телефон</h3>
+                        <p>+7 (922) 123-45-67</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <h3>Email</h3>
+                        <p>info@darstudio.ru</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Имя</label>
+                        <input type="text" id="name" placeholder="Ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Ваш email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" rows="5" placeholder="Ваше сообщение"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Отправить сообщение</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно для деталей игры -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="">
+                <div class="modal-text">
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDescription"></p>
+                    <div class="game-features">
+                        <div class="feature">
+                            <span class="feature-label">Жанр:</span>
+                            <span class="feature-value" id="modalGenre"></span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-label">Платформы:</span>
+                            <span class="feature-value" id="modalPlatforms"></span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-label">Год выпуска:</span>
+                            <span class="feature-value" id="modalYear"></span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-label">Оценка:</span>
+                            <span class="feature-value" id="modalRating"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Слайдер
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            currentSlide = (index + totalSlides) % totalSlides;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        document.querySelector('.prev').addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+        });
+
+        document.querySelector('.next').addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+        });
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+
+        // Автоматическое переключение слайдов
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+
+        // Модальное окно для игр
+        const modal = document.getElementById('gameModal');
+        const closeModal = document.querySelector('.close-modal');
+        const gameCards = document.querySelectorAll('.game-card');
+
+        // Данные для модального окна
+        const gameData = {
+            'cyber-nexus': {
+                title: 'Cyber Nexus',
+                description: 'Киберпанк RPG с открытым миром, где игроки исследуют мегаполис будущего, принимают решения, влияющие на сюжет, и сражаются с могущественными корпорациями.',
+                genre: 'Киберпанк RPG',
+                platforms: 'PC, PlayStation, Xbox',
+                year: '2022',
+                rating: '9.2/10',
+                image: 'https://newcdn.igromania.ru/mnt/games/4/9/4/a/d/0/14727/73f7677257f9bfa6_original.webp'
+            },
+            'arctic-survival': {
+                title: 'Arctic Survival',
+                description: 'Хардкорный симулятор выживания в арктических условиях. Игрокам предстоит бороться с экстремальными температурами, дикими животными и собственными страхами.',
+                genre: 'Симулятор выживания',
+                platforms: 'PC, PlayStation, Xbox, Nintendo Switch',
+                year: '2021',
+                rating: '8.7/10',
+                image: 'https://cdn1.epicgames.com/spt-assets/f860c975e5f041aa895eaef6201e066a/extreme-offroad-racing-1rqz8.jpg'
+            },
+            'Fantasy Kingdom': {
+                title: 'Fantasy Kingdom',
+                description: 'Фэнтези RPG с элементами тактики, где игроки создают собственного героя, исследуют огромный мир, наполненный магией и легендами, и принимают участие в эпических битвах.',
+                genre: 'Фэнтези RPG',
+                platforms: 'PC, PlayStation, Xbox',
+                year: '2020',
+                rating: '9.0/10',
+                image: 'https://unity.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Ffuvbjjlp%2Fproduction%2F52d107d2ecf2ed3cbe61c25d5fab1832e064a1ba-1920x1080.png%3Fauto%3Dformat&w=3840&q=75'
+            }
+        };
+
+        gameCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const gameId = card.getAttribute('data-game');
+                const data = gameData[gameId];
+                
+                document.getElementById('modalTitle').textContent = data.title;
+                document.getElementById('modalDescription').textContent = data.description;
+                document.getElementById('modalGenre').textContent = data.genre;
+                document.getElementById('modalPlatforms').textContent = data.platforms;
+                document.getElementById('modalYear').textContent = data.year;
+                document.getElementById('modalRating').textContent = data.rating;
+                document.getElementById('modalImage').src = data.image;
+                
+                modal.style.display = 'block';
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Анимированные частицы
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 6 + 2;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.top = `${top}%`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Изменение активного пункта меню при прокрутке
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Инициализация при загрузке страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+        });
+    </script>
+</body>
+</html>
