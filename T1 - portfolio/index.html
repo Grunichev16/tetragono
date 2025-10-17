@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио игр - GameDev Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="portfolio-section">
+        <div class="container">
+            <h2 class="section-title">Наши игры</h2>
+            <p class="section-subtitle">Лучшие проекты, созданные с любовью к геймингу</p>
+            
+            <div class="portfolio-grid">
+                <!-- Игра 1 -->
+                <div class="game-card" data-game="cyberpunk">
+                    <div class="game-image">
+                        <img src="" alt="Cyberpunk Adventure" data-image="cyberpunk">
+                        <div class="game-overlay">
+                            <span class="view-details">Подробнее</span>
+                        </div>
+                    </div>
+                    <h3 class="game-title">Cyberpunk Adventure</h3>
+                    <p class="game-genre">RPG • Открытый мир</p>
+                </div>
+
+                <!-- Игра 2 -->
+                <div class="game-card" data-game="fantasy">
+                    <div class="game-image">
+                        <img src="" alt="Fantasy Kingdom" data-image="fantasy">
+                        <div class="game-overlay">
+                            <span class="view-details">Подробнее</span>
+                        </div>
+                    </div>
+                    <h3 class="game-title">Fantasy Kingdom</h3>
+                    <p class="game-genre">MMORPG • Фэнтези</p>
+                </div>
+
+                <!-- Игра 3 -->
+                <div class="game-card" data-game="racing">
+                    <div class="game-image">
+                        <img src="" alt="Extreme Racing" data-image="racing">
+                        <div class="game-overlay">
+                            <span class="view-details">Подробнее</span>
+                        </div>
+                    </div>
+                    <h3 class="game-title">Extreme Racing</h3>
+                    <p class="game-genre">Гонки • Экшен</p>
+                </div>
+
+                <!-- Игра 4 -->
+                <div class="game-card" data-game="strategy">
+                    <div class="game-image">
+                        <img src="" alt="Space Strategy" data-image="strategy">
+                        <div class="game-overlay">
+                            <span class="view-details">Подробнее</span>
+                        </div>
+                    </div>
+                    <h3 class="game-title">Space Strategy</h3>
+                    <p class="game-genre">Стратегия • Sci-Fi</p>
+                </div>
+
+                <!-- Игра 5 -->
+                <div class="game-card" data-game="horror">
+                    <div class="game-image">
+                        <img src="" alt="Dark Asylum" data-image="horror">
+                        <div class="game-overlay">
+                            <span class="view-details">Подробнее</span>
+                        </div>
+                    </div>
+                    <h3 class="game-title">Dark Asylum</h3>
+                    <p class="game-genre">Хоррор • Выживание</p>
+                </div>
+
+                <!-- Игра 6 -->
+                <div class="game-card" data-game="puzzle">
+                    <div class="game-image">
+                        <img src="" alt="Mind Puzzles" data-image="puzzle">
+                        <div class="game-overlay">
+                            <span class="view-details">Подробнее</span>
+                        </div>
+                    </div>
+                    <h3 class="game-title">Mind Puzzles</h3>
+                    <p class="game-genre">Головоломка • Казуальная</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно для описания игры -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="">
+                <div class="modal-text">
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDescription"></p>
+                    <div class="game-features">
+                        <div class="feature">
+                            <span class="feature-label">Жанр:</span>
+                            <span id="modalGenre" class="feature-value"></span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-label">Платформа:</span>
+                            <span id="modalPlatform" class="feature-value"></span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-label">Год выпуска:</span>
+                            <span id="modalYear" class="feature-value"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
